@@ -17,7 +17,7 @@ pipeline {
     stages {
         stage('Сборка') {
             steps {
-                bat "\"${PLATFORM_PATH}\" CREATEINFOBASE \"File=${WORKSPACE}\" /Out build.log -NoTruncate"
+                bat "\"${PLATFORM_PATH}\" CREATEINFOBASE \"File=${WORKSPACE}\" ${FLAGS}"
                 bat "\"${PLATFORM_PATH}\" DESIGNER /F\"${WORKSPACE}\" /LoadCfg \"${params.cf_path}\" ${FLAGS}"
                 bat "\"${PLATFORM_PATH}\" DESIGNER /F\"${WORKSPACE}\" /UpdateDBCfg ${FLAGS}"
                 bat "\"${PLATFORM_PATH}\" DESIGNER /F\"${WORKSPACE}\" /LoadCfg \"${params.cfe_path}\" -Extension \"YAXUNIT\" ${FLAGS}"
@@ -27,14 +27,13 @@ pipeline {
         stage('Инициализация') {
             steps {
                 // Первоначальный запуск с ключом YAXUNIT_EXTENSION_INIT
-             //   bat "\"${PLATFORM_PATH}\" ENTERPRISE /F\"${WORKSPACE}\" /C\"YAXUNIT_EXTENSION_INIT\" ${FLAGS}"
-             bat "echo \"asd\""
+                sleep 1 //bat "\"${PLATFORM_PATH}\" ENTERPRISE /F\"${WORKSPACE}\" /C\"YAXUNIT_EXTENSION_INIT\" ${FLAGS}"
             }
         }
         stage('Тестирование') {
             steps {
                 // Запуск тестов; YAXUnit формирует junit.xml и allure-results согласно json_path
-            //    bat "\"${PLATFORM_PATH}\" ENTERPRISE /F\"${WORKSPACE}\" /C\"RunUnitTests=${params.json_path};\" ${FLAGS}"
+                sleep 1 //bat "\"${PLATFORM_PATH}\" ENTERPRISE /F\"${WORKSPACE}\" /C\"RunUnitTests=${params.json_path};\" ${FLAGS}"
             }
         }
     }
