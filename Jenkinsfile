@@ -11,7 +11,7 @@ pipeline {
     }
     post {
         always {
-            bat "if exist \"${WORKSPACE}\\build.log\" type \"${WORKSPACE}\\build.log\""
+            bat "if exist \"${env.LOG}\" type \"${env.LOG}\""
             allure includeProperties: false, jdk: '', resultPolicy: 'LEAVE_AS_IS', results: [[path: 'allure-results']]
             junit allowEmptyResults: true, testResults: 'junit.xml'
         }
@@ -28,11 +28,11 @@ pipeline {
                 // Обновляем конфигурацию БД
                 bat "\"${PLATFORM_PATH}\" DESIGNER /F\"${WORKSPACE}\" /UpdateDBCfg /DisableStartupMessages /DisableStartupDialogs /Out \"${LOG}\" -NoTruncate"
 
-                // 3. Загружаем расширение CFE
-                bat "\"${PLATFORM_PATH}\" DESIGNER /F\"${WORKSPACE}\" /LoadCfg \"${params.cfe_path}\" /Extension \"YAXUNIT\" /DisableStartupMessages /DisableStartupDialogs /Out \"${LOG}\" -NoTruncate"
+                // 3. Загружаем расширение CFE (имя расширения берётся из самого файла)
+                bat "\"${PLATFORM_PATH}\" DESIGNER /F\"${WORKSPACE}\" /LoadCfg \"${params.cfe_path}\" /DisableStartupMessages /DisableStartupDialogs /Out \"${LOG}\" -NoTruncate"
 
                 // Обновляем конфигурацию БД для расширения
-                bat "\"${PLATFORM_PATH}\" DESIGNER /F\"${WORKSPACE}\" /UpdateDBCfg /Extension \"YAXUNIT\" /DisableStartupMessages /DisableStartupDialogs /Out \"${LOG}\" -NoTruncate"
+                bat "\"${PLATFORM_PATH}\" DESIGNER /F\"${WORKSPACE}\" /UpdateDBCfg /DisableStartupMessages /DisableStartupDialogs /Out \"${LOG}\" -NoTruncate"
             }
         }
         stage('Инициализация') {
