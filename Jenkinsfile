@@ -1,5 +1,4 @@
 def PLATFORM_PATH = 'C:\\Program Files\\1Cv8\\8.3.27.1989\\bin\\1cv8.exe'
-def LOG = "${WORKSPACE}\\build.log"
 
 pipeline {
     options {
@@ -7,6 +6,9 @@ pipeline {
         timeout(time: 60, unit: 'MINUTES')
     }
     agent any
+    environment {
+        LOG = "${env.WORKSPACE}\\build.log"
+    }
     post {
         always {
             bat "if exist \"${WORKSPACE}\\build.log\" type \"${WORKSPACE}\\build.log\""
