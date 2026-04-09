@@ -33,7 +33,7 @@ pipeline {
         stage('Тестирование') {
             steps {
                 // Запуск тестов; YAXUnit формирует junit.xml и allure-results согласно json_path
-                bat "\"${PLATFORM_PATH}\" ENTERPRISE /F\"${WORKSPACE}\" /C\"RunUnitTests=${params.json_path};\" ${FLAGS}"
+                sleep 1 //bat "\"${PLATFORM_PATH}\" ENTERPRISE /F\"${WORKSPACE}\" /C\"RunUnitTests=${params.json_path};\" ${FLAGS}"
             }
         }
     }
