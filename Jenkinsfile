@@ -28,6 +28,7 @@ pipeline {
             steps {
                 // Первоначальный запуск с ключом YAXUNIT_EXTENSION_INIT
              //   bat "\"${PLATFORM_PATH}\" ENTERPRISE /F\"${WORKSPACE}\" /C\"YAXUNIT_EXTENSION_INIT\" ${FLAGS}"
+             echo ""
             }
         }
         stage('Тестирование') {
