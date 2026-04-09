@@ -18,11 +18,15 @@ pipeline {
                 // 1. Создаем пустую Информационную Базу (BASE_PATH = каталог сборки)
                 bat "\"${PLATFORM_PATH}\" CREATEINFOBASE \"File=${WORKSPACE}\""
 
-                // 2. Загружаем конфигурацию CF и обновляем ИБ
-                bat "\"${PLATFORM_PATH}\" DESIGNER /F\"${WORKSPACE}\" /LoadCfg \"${params.cf_path}\" /UpdateIBCfg /DisableStartupMessages /DisableStartupDialogs"
+                // 2. Загружаем конфигурацию CF
+                bat "\"${PLATFORM_PATH}\" DESIGNER /F\"${WORKSPACE}\" /LoadCfg \"${params.cf_path}\" /DisableStartupMessages /DisableStartupDialogs"
+                // Обновляем конфигурацию БД
+                bat "\"${PLATFORM_PATH}\" DESIGNER /F\"${WORKSPACE}\" /UpdateDBCfg /DisableStartupMessages /DisableStartupDialogs"
 
-                // 3. Загружаем расширение CFE и обновляем ИБ
-                bat "\"${PLATFORM_PATH}\" DESIGNER /F\"${WORKSPACE}\" /LoadCfg \"${params.cfe_path}\" /Extension \"YAXUNIT\" /UpdateIBCfg /DisableStartupMessages /DisableStartupDialogs"
+                // 3. Загружаем расширение CFE
+                bat "\"${PLATFORM_PATH}\" DESIGNER /F\"${WORKSPACE}\" /LoadCfg \"${params.cfe_path}\" /Extension \"YAXUNIT\" /DisableStartupMessages /DisableStartupDialogs"
+                // Обновляем конфигурацию БД для расширения
+                bat "\"${PLATFORM_PATH}\" DESIGNER /F\"${WORKSPACE}\" /UpdateDBCfg /Extension \"YAXUNIT\" /DisableStartupMessages /DisableStartupDialogs"
             }
         }
         stage('Инициализация') {
