@@ -27,13 +27,13 @@ pipeline {
         stage('Инициализация') {
             steps {
                 // Первоначальный запуск с ключом YAXUNIT_EXTENSION_INIT
-                sleep 1 //bat "\"${PLATFORM_PATH}\" ENTERPRISE /F\"${WORKSPACE}\" /C\"YAXUNIT_EXTENSION_INIT\" ${FLAGS}"
+                bat "\"${PLATFORM_PATH}\" ENTERPRISE /F\"${WORKSPACE}\" /C\"YAXUNIT_EXTENSION_INIT\" ${FLAGS}"
             }
         }
         stage('Тестирование') {
             steps {
                 // Запуск тестов; YAXUnit формирует junit.xml и allure-results согласно json_path
-                sleep 1 //bat "\"${PLATFORM_PATH}\" ENTERPRISE /F\"${WORKSPACE}\" /C\"RunUnitTests=${params.json_path};\" ${FLAGS}"
+                bat "\"${PLATFORM_PATH}\" ENTERPRISE /F\"${WORKSPACE}\" /C\"RunUnitTests=${params.json_path};\" ${FLAGS}"
             }
         }
     }
