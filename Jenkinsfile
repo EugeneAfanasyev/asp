@@ -11,7 +11,7 @@ pipeline {
         always {
             bat "if exist build.log type build.log"
             allure includeProperties: false, jdk: '', resultPolicy: 'LEAVE_AS_IS', results: [[path: 'allure-results']]
-            junit allowEmptyResults: true, testResults: 'junit.xml'
+            junit allowEmptyResults: true, testResults: 'report.xml'
         }
     }
     stages {
@@ -31,7 +31,6 @@ pipeline {
         }
         stage('Тестирование') {
             steps {
-                // Запуск тестов; YAXUnit формирует junit.xml и allure-results согласно json_path
                 bat "\"${PLATFORM_PATH}\" ENTERPRISE /F\"${WORKSPACE}\" /C\"RunUnitTests=${params.json_path};\" ${FLAGS}"
             }
         }
