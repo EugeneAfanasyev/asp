@@ -31,7 +31,7 @@ pipeline {
         }
         stage('Тестирование') {
             steps {
-                bat "\"${PLATFORM_PATH}\" ENTERPRISE /F\"${WORKSPACE}\" /C\"RunUnitTests=${params.json_path};\" ${FLAGS}"
+                bat "\"${PLATFORM_PATH}\" ENTERPRISE /F\"${WORKSPACE}\" /C\"RunUnitTests=${params.json_path};workspacePath=${WORKSPACE};\" ${FLAGS}"
             }
         }
     }
