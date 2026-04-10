@@ -31,7 +31,8 @@ pipeline {
         }
         stage('Тестирование') {
             steps {
-                bat "\"${PLATFORM_PATH}\" ENTERPRISE /F\"${WORKSPACE}\" /C\"RunUnitTests=${params.json_path};reports=[{format:jUnit, path:report.xml}, {format:allure, path:allure-results}];\" ${FLAGS}"
+                //bat "\"${PLATFORM_PATH}\" ENTERPRISE /F\"${WORKSPACE}\" /C\"RunUnitTests=${params.json_path};reports=[{format:jUnit, path:report.xml}, {format:allure, path:allure-results}];\" ${FLAGS}"
+                bat "\"${PLATFORM_PATH}\" ENTERPRISE /F\"${WORKSPACE}\" /C\"RunUnitTests=${params.json_path};reportFormat=jUnit;reportPath=report.xml\" ${FLAGS}"
             }
         }
     }
